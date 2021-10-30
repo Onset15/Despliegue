@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Reconocimiento de Placas</title>
+    </head>
+    <body>
+        <div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="imageFile" />
+                <br><br>
+                <input type="submit" name="submit" value="Upload" />
+            </form>
+        </div>
+        {% if datos %}
+            <h1>{{datos}}: El programa lo detecto como, {{predictions}} </h1>
+        {%endif%}
+        <div>
+            <img src = {{url}}>
+        </div>
+        {%if area %}
+            <br>Placa: {{area}}
+        <div>
+            <h6>{{img}}</h6>
+        </div>    
+        {%endif%}
+    </body>
+</html>
