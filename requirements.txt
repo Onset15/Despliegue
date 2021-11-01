@@ -2,7 +2,7 @@ django==3.2.7
 tensorflow==2.6.0
 opencv-python==4.5.3.56
 keras
-pillow==8.2.6
+pillow==8.2.0
 numpy==1.19.5
 matplotlib==3.4.3
 torch==1.9.1
