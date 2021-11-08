@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<div class="card-body ">
+    <div class="container">
+        <div class="card">
+            <div class="card-body" class="card-body">
+                <div class="container-fluid">
+                    <div class="card-body"> 
+                        <div>
+                            <div>
+                                <a class="btn btn-outline-primary" href={% url 'usuarios:home'%}>Home</a>
+                                <a class="btn btn-outline-secondary" href={% url 'usuarios:listar_usuarios'%}>Listar Usuarios</a><br>
+                            </div>
+                        </div>
+                    <form method="POST" class="row g-3" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="container">
+                                <div class="container-body">
+                                    <small class="text-muted"><p class="h2"><br>Crear Usuario</p></small>
+                                </div>
+                            </div>
+                            <div class="container-xxl">
+                                <div class="mb-3">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="form-group">
+                                        <label class="form-label">{{ form.nombres.label_tag }} </label>
+                                            {{ form.nombres }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <div class="form-group">
+                                        <label class="form-label">{{ form.apellidos.label_tag }} </label>
+                                            {{ form.apellidos }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="form-group">
+                                        <label class="form-label">{{ form.direccion.label_tag }} </label>
+                                            {{ form.direccion }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="form-group">
+                                        <label class="form-label">{{ form.telefono.label_tag }} </label>
+                                        {{ form.telefono }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="form-group">
+                                        <label class="form-label">{{ form.dui.label_tag }} </label>
+                                            {{ form.dui }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="form-group">
+                                        <label class="form-label">{{ form.fechaNacimiento.label_tag }} </label>
+                                            {{ form.fechaNacimiento }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="col-md-10 col-md-offset-2">
+                                        <div class="form-group">
+                                        <label class="form-label">{{ form.licencia.label_tag }} </label>
+                                            {{ form.licencia }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <button type="submit" class="submit-btn btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'jquery-3.6.0.min.js'%}"></script>
+<script src="{% static 'jquery.mask.min.js'%}"></script>
+<script src="{% static 'mascara.js'%}"></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+<div class="card">
+    <div class="card-body" class="card-body">
+        <div class="container-fluid">
+            <div class="card-body"> 
+                <div>
+                    <a class="btn btn-outline-primary" href={% url 'usuarios:home'%}>Home</a>
+                    <a class="btn btn-outline-secondary" href={% url 'usuarios:listar_vehiculos'%}>Listar Vehiculos</a>
+                </div>
+                <form method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <div class="container">
+                            <small class="text-muted"><p class="h2"><br>Crear Vehiculo</p></small>
+                        </div>
+                        <div class="container-xxl">
+                            <div class="mb-3">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <div class="form-group">
+                                    <label class="form-label">{{ form.usuario.label_tag }}</label>
+                                        {{ form.usuario }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <div class="form-group">
+                                    <label class="form-label">{{ form.matricula.label_tag }}</label>
+                                        {{ form.matricula }}        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <div class="form-group">
+                                    <label class="form-label">{{ form.modelo.label_tag }}</label>                                    
+                                        {{ form.modelo }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <div class="form-group">
+                                    <label class="form-label">{{ form.color.label_tag }}</label>
+                                        {{ form.color }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <div class="form-group">
+                                    <label class="form-label">{{ form.anio.label_tag }} </label>
+                                        {{ form.anio }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <button type="submit" class="submit-btn btn btn-primary">Guardar</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'jquery-3.6.0.min.js'%}"></script>
+<script src="{% static 'jquery.mask.min.js'%}"></script>
+<script src="{% static 'mascara.js'%}"></script>
+{% endblock %}

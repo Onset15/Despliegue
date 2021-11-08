@@ -1,27 +1,148 @@
-<html>
-    <head>
-        <title>Reconocimiento de Placas</title>
-    </head>
-    <body>
-        <div>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" name="imageFile" />
-                <br><br>
-                <input type="submit" name="submit" value="Upload" />
-            </form>
+{% extends 'base.html'%}
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <div >
+                <table class="table table-striped">
+                    <td>
+                        <label>Datos ingresados en al BD:  &nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <a class="btn btn-outline-primary" type="button" href="{% url 'usuarios:listar_usuarios'%}">Listar Usuarios</a>
+                        &nbsp;&nbsp; 
+                        <a class="btn btn-outline-primary" type="button" href="{% url 'usuarios:listar_vehiculos'%}">Listar Vehiculos</a> 
+                        &nbsp;&nbsp; 
+                        {%if  estado != None %}
+                            <a class="btn btn-outline-primary" type="button" href="{% url 'usuarios:home'%}">Home</a>
+                        {% endif %}
+                    </td>
+                </table>
+            </div>
+            {%if  estado == None %}
+            <div text-align = "center">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body ">
+                        <div class="container">
+                            <div class="input-group mb-3">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input class="form-control" type="file" name="imageFile" accept="image/jpeg"/>
+                                    <input class="btn btn-outline-secondary" type="submit" name="submit" value="Upload" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+            {% if datos %}
+            <table class="table">
+                <td style="width:35%;" >
+                    {%if area %}
+                        <p class="fs-4">Placa detectada por el sistema es: "{{area}}"</p>
+                    {%endif%}
+                    <div class="container-fluid">
+                        <figure class="figure">
+                            <img src = "{{url}}" class="figure-img img-fluid rounded" width="100%">
+                            <p class="fs-3" align="center"><p class="text-uppercase"><figcaption class="figure-caption">La imagen contiene una {{predictions}} y {{datos}}</figcaption></p></p>
+                        </figure>
+                    </div>
+                    {%endif%}
+                    {%if error %}
+                        <div class="container-fluid">   
+                            <p class="fs-4">{{error}}</p>
+                        </div>
+                    {%endif%}
+                </td>
+                <td>
+                    {% if placa != None%}
+                        <div class="container">
+                            <div class="container-fluid">
+                                <figure class="figure">
+                                    <p class="fs-3" align="center"><p class="text-uppercase"><figcaption class="figure-caption">La imagen de la placa es:</figcaption></p></p>
+                                    <img src = "{{placa}}" class="figure-img img-fluid rounded" width="200%">
+                                </figure>
+                            </div> 
+                        </div>
+                    {%endif%}
+                    {%if datosVehiculo != None %}
+                    <div class="card">
+                        {% if mensaje %}
+                            <h5 class="card-header">{{mensaje}}</h5>
+                        {% endif %}
+                            <div class="card-body">
+                                <table class="table table-borderles">
+                                    <td style="width:50%;">
+                                        <div class="card-body">
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <p class="fw-bold">Datos del Usuario:</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Nombres:</b></label> <label class="fw-light">{{datosUsuarioNombres}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Apellidos:</b></label> <label class="fw-light">{{datosUsuarioApellidos}} </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Direccion:</b></label> <label class="fw-light"> {{datosUsuarioDireccion}}</label> 
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Telefono:</b></label> <label class="fw-light"> {{datosUsuarioTelefono}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Dui:</b></label> <label class="fw-light"> {{datosUsuarioDui}}</label> 
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Numero de Licencia:</b></label> <label class="fw-light"> {{datosUsuarioLicencia}}</label> 
+                                                </div>
+                                            </div>
+                                        </div>                 
+                                    </td>
+                                    <td>
+                                        <div class="card-body">
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <p class="fw-bold">Datos del Vehiculo:</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Matricula:</b></label> <label class="fw-light">{{datosVehiculo}}</label>
+                                                </div>
+                                            </div>   
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Modelo:</b></label> <label class="fw-light">{{datosVehiculoModelo}}</label>
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Color:</b></label> <label class="fw-light">{{datosVehiculoColor}}</label>
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <div class="form-group">
+                                                    <label class="fw-normal"> &nbsp;&nbsp;&nbsp;&nbsp; <b>Año:</b></label> <label class="fw-light">{{datosVehiculoAnio}}</label>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </td>
+                                </table>
+                            </div>
+                        </div>
+                    {%endif%}
+                </td>
         </div>
-        {% if datos %}
-            <h1>{{datos}}: El programa lo detecto como, {{predictions}} </h1>
-        {%endif%}
-        <div>
-            <img src = {{url}}>
-        </div>
-        {%if area %}
-            <br>Placa: {{area}}
-        <div>
-            <h6>{{img}}</h6>
-        </div>    
-        {%endif%}
-    </body>
-</html>
+    </div >
+{% endblock %}
