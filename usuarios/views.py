@@ -1,23 +1,15 @@
-from typing import List, Text
-from django.db.models.fields import CharField
 from django.shortcuts import render
-from io import StringIO
-from keras.backend import relu
 import tensorflow as tf 
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
-from django.conf import settings 
 from django.core.files.storage import default_storage
 from django.shortcuts import render 
 from keras.applications import vgg16
 from keras.applications.imagenet_utils import decode_predictions
 from keras.preprocessing.image import img_to_array, load_img
 import easyocr
-from matplotlib import pyplot as plt
-from PIL import Image, ImageOps
+from PIL import Image
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django import forms
 from .forms import *
 from django.urls import reverse_lazy
 from django.db import connection
@@ -37,9 +29,7 @@ def my_custom_sql(text):
 
 def index(request):
     if request.method == "POST":
-        #
         # Django image API
-        #
         try:
             file = request.FILES["imageFile"]
 
@@ -52,7 +42,6 @@ def index(request):
         file_url = default_storage.path(file_name)
 
         image = load_img(file_url, target_size=(224, 224))
-        print(image)
         numpy_array = img_to_array(image)
         image_batch = np.expand_dims(numpy_array, axis=0)
         processed_image = vgg16.preprocess_input(image_batch.copy())
@@ -125,7 +114,6 @@ def index(request):
                                               "mensaje":"No es vehiculo y no posee matricula"})
 
     return render(request, "index.html")
-
 
 #Modelo para listar Usuarios 
 class UsuariosListar(ListView):
